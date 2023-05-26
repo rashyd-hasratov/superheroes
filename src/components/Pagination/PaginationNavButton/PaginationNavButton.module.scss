@@ -1,0 +1,30 @@
+.pagination_nav_button {
+  width: 32px;
+  height: 32px;
+
+  border: 1px solid #e7e6e6;
+  border-radius: 50%;
+  background-color: #e7e6e6;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 8px;
+
+  transition: background-color 0.2s linear;
+
+  &:hover {
+    background-color: #ffffff;
+  }
+}
+
+.pagination_nav_button_disabled {
+  opacity: 50%;
+  pointer-events: none;
+}
+
+.pagination_nav_button_prev_icon {
+  background-image: url('../../../assets/icons/icon-arrow-left.svg');
+}
+
+.pagination_nav_button_next_icon {
+  background-image: url('../../../assets/icons/icon-arrow-right.svg');
+}

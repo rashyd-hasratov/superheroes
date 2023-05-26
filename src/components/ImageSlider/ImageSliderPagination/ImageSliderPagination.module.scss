@@ -1,0 +1,17 @@
+.pagination {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, 1fr);
+
+  @media (min-width: 939px) {
+    display: flex;
+    flex-direction: column;
+
+    flex-basis: 16%;
+    flex-shrink: 1;
+  }
+
+  @media (min-width: 1024px) {
+    gap: 16px;
+  }
+}

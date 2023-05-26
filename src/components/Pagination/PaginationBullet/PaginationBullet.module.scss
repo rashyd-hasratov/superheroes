@@ -1,0 +1,23 @@
+.pagination_bullet {
+  width: 32px;
+  height: 32px;
+
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 16px;
+  color: #000000;
+
+  border: 1px solid #e7e6e6;
+  border-radius: 50%;
+  background-color: #e7e6e6;
+
+  transition: background-color 0.2s linear;
+
+  &:hover {
+    background-color: #ffffff;
+  }
+}
+
+.pagination_bullet_active {
+  background-color: #ffffff;
+}

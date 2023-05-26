@@ -1,0 +1,44 @@
+.pagination_bullet {
+  position: relative;
+
+  width: 100%;
+
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  border: 2px solid #e7e6e6;
+  background-color: transparent;
+
+  transition: border-color 0.2s linear;
+
+  &:hover {
+    border-color: #000000;
+  }
+}
+
+.pagination_bullet_active {
+  border-color: #000000;
+}
+
+.pagination_bullet_image_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 80%;
+
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  transform: translate(-50%, -50%);
+}

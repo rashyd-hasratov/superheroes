@@ -1,0 +1,41 @@
+.slider_wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 16px;
+
+  @media (min-width: 939px) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  :global(.swiper-wrapper) {
+    width: 100%;
+  }
+  
+  :global(.swiper) {
+    position: absolute;
+    width: 100%;
+  }
+}
+
+.slider {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  flex-shrink: 0;
+  width: 100%;
+
+  @media (min-width: 939px) {
+    flex-basis: 82%;
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+}
+
+.temp {
+  width: 50%;
+}
