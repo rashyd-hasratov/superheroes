@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperClass } from 'swiper/types';
-
-import { API_BASE_URL } from '../../constants';
 import { ImageSliderPagination } from './ImageSliderPagination';
 import { ImageSlide } from './ImageSlide'
 
@@ -11,6 +9,8 @@ import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
 import "swiper/swiper-bundle.min.css";
 import styles from './ImageSlider.module.scss';
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 type ImageSliderProps = {
   productImages: string[],

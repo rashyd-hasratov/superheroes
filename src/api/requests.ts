@@ -1,6 +1,7 @@
 import { Superhero } from "../types/Superhero";
-import { API_BASE_URL } from '../constants';
 import { get, post, patch, remove } from './fetchers';
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 type SuperheroPostData = {
   nickname: string;

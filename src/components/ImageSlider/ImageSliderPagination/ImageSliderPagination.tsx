@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Swiper as SwiperClass } from 'swiper/types';
 
-import { API_BASE_URL } from '../../../constants';
 import {
   ImageSliderPaginationBullet,
 } from '../ImageSliderPaginationBullet';
 
 import styles from './ImageSliderPagination.module.scss';
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 type ImageSliderPaginationProps = {
   images: string[],

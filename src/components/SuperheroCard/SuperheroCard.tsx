@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { API_BASE_URL } from '../../constants';
 import { Superhero } from '../../types/Superhero';
 
 import styles from './SuperheroCard.module.scss';
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 type SuperheroCardProps = {
   superhero: Superhero,
