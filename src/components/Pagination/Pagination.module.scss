@@ -1,9 +1,11 @@
+@import '../../styles/variables';
+
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: $size-xs;
 
   width: max-content;
-  margin: 0 auto 64px;
+  margin: 0 auto $size-xxl;
 }

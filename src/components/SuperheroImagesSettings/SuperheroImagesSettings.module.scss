@@ -1,0 +1,96 @@
+@import '../../styles/_variables.scss';
+@import '../../styles/mixins';
+@import '../../styles/extends';
+
+.settings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $size-xs;
+
+  &_header {
+    display: flex;
+    align-items: flex-start;
+    gap: $size-xs;
+  }
+
+  &_title {
+    font-weight: 700;
+  }
+}
+
+.image_input_label {
+  position: relative;
+
+  @include circle($size-m);
+
+  padding: $size-xs;
+
+  text-align: center;
+
+  border: none;
+  background-color: $color-green-light;
+
+  transition: background-color 0.2s linear;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-green-dark;
+  }
+
+  &::before {
+    content: '';
+    @extend %absoluteCenterAlignment;
+
+    width: 60%;
+    padding-bottom: 60%;
+
+    background-image: url('../../assets/icons/icon-plus.svg');
+    @extend %backgroundCenterCoverAlignment;
+  }
+}
+
+.image_input {
+  display: none;
+}
+
+.image_upload {
+  display: flex;
+}
+
+.images_info {
+  display: flex;
+  flex-direction: column;
+  gap: $size-xs;
+}
+
+.image_info {
+  display: flex;
+  align-items: center;
+  gap: $size-xs;
+}
+
+.delete_image_button {
+  position: relative;
+
+  @include square($size-m);
+
+  border-radius: 50%;
+  background-color: $color-red-light;
+
+  transition: background-color 0.2s linear;
+
+  &:hover {
+    background-color: $color-red-dark;
+  }
+
+  &::before {
+    content: '';
+    @extend %absoluteCenterAlignment;
+
+    width: 40%;
+    padding-bottom: 50%;
+
+    background-image: url('../../assets/icons/icon-trash-can-white.svg');
+    @extend %backgroundCenterCoverAlignment;
+  }
+}

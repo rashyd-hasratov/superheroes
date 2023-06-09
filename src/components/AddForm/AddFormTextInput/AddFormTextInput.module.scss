@@ -1,0 +1,30 @@
+@import '../../../styles/variables';
+
+.input_label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  font-size: 14px;
+}
+
+.input {
+  padding: 8px 12px;
+
+  font-family: inherit;
+
+  outline: none;
+  border: 1px solid $color-gray-light;
+  border-radius: 8px;
+  background-color: $color-gray-light;
+
+  transition: border-color 0.2s linear;
+
+  &:hover {
+    border-color: $color-gray-dark;
+  }
+
+  &:focus {
+    border-color: $color-blue;
+  }
+}

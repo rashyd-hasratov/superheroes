@@ -1,0 +1,51 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+@import '../../styles/extends';
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: $size-m;
+
+  margin-bottom: $size-s;
+}
+
+.title {
+  font-weight: 700;
+  font-size: $size-l;
+  
+  @media (min-width: 1024px) {
+    font-size: 36px;
+  }
+}
+
+.delete_button {
+  position: relative;
+  display: none;
+
+  @include square($size-l);
+
+  border-radius: 8px;
+  background-color: $color-red-light;
+
+  transition: background-color 0.2s linear;
+
+  &:hover {
+    background-color: $color-red-dark;
+  }
+
+  @media (min-width: 939px) {
+    display: block;
+  }
+
+  &::before {
+    content: '';
+    @extend %absoluteCenterAlignment;
+
+    width: 40%;
+    padding-bottom: 50%;
+
+    background-image: url('../../assets/icons/icon-trash-can-white.svg');
+    @extend %backgroundCenterCoverAlignment;
+  }
+}

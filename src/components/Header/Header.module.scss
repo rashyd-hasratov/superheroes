@@ -1,0 +1,58 @@
+@import '../../styles/variables';
+
+.header_wrapper {
+  background-color: $color-gray-light;
+
+  padding: 16px 20px;
+
+  @media (min-width: 640px) {
+    padding: 24px 32px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 32px 48px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: $size-m;
+  color: $color-black;
+
+  @media (min-width: 640px) {
+    font-size: $size-l;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: $size-xl;
+  }
+}
+
+.add_button {
+  padding: 8px 12px;
+
+  font-family: inherit;
+  font-weight: 700;
+  color: $color-white;
+
+  border-radius: 8px;
+  background-color: $color-green-light;
+
+  transition: background-color 0.2s linear;
+
+  &:hover {
+    background-color: $color-green-dark;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 16px 24px;
+    font-size: $size-s;
+  }
+}

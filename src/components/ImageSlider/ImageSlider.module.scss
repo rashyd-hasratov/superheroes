@@ -1,7 +1,10 @@
+@import '../../styles/variables';
+
 .slider_wrapper {
   display: flex;
   flex-direction: column-reverse;
-  gap: 16px;
+  justify-content: flex-end;
+  gap: $size-s;
 
   @media (min-width: 939px) {
     flex-direction: row;

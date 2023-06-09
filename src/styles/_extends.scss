@@ -1,0 +1,12 @@
+%absoluteCenterAlignment {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+%backgroundCenterCoverAlignment {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}

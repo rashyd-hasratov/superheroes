@@ -1,55 +1,59 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+@import '../../styles/extends';
+
 .card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: $size-xs;
 
   flex-shrink: 0;
 
   padding: 16px;
 
-  border: 1px solid #e7e6e6;
+  border: 1px solid $color-gray-light;
   border-radius: 8px;
+
+  transition: box-shadow 0.2s linear;
+
+  &:hover {
+    box-shadow: 10px 5px 5px rgba($color: $color-black, $alpha: 0.1);
+  }
 }
 
 .info {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: $size-s;
 
   @media (min-width: 640px) {
-    gap: 24px;
+    gap: $size-m;
   }
 }
 
 .image_container {
   flex-shrink: 0;
 
-  width: 40px;
-  height: 40px;
+  @include circle(40px);
 
-  border-radius: 50%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  @extend %backgroundCenterCoverAlignment;
 
   @media (min-width: 640px) {
-    width: 60px;
-    height: 60px;
+    @include square(60px);
   }
 
   @media (min-width: 1024px) {
-    width: 72px;
-    height: 72px;
+    @include square(72px);
   }
 }
 
 .nickname {
   font-weight: 700;
-  font-size: 16px;
+  font-size: $size-s;
 
   @media (min-width: 640px) {
-    font-size: 24px;
+    font-size: $size-m;
   }
 }
 
@@ -61,14 +65,14 @@
   font-family: inherit;
   font-weight: 700;
 
-  border: 1px solid #e7e6e6;
+  border: 1px solid $color-gray-light;
   border-radius: 8px;
-  background-color: #e7e6e6;
+  background-color: $color-gray-light;
 
   transition: background-color 0.2s linear;
 
   &:hover {
-    background-color: #ffffff;
+    background-color: $color-white;
   }
 
   @media (min-width: 640px) {

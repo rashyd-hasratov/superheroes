@@ -1,0 +1,26 @@
+@import '../../styles/variables';
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $size-s;
+
+  min-height: 100vh;
+
+  @media (min-width: 640px) {
+    gap: $size-m;
+  }
+
+  @media (min-width: 1024px) {
+    gap: $size-l;
+  }
+}
+
+.main_wrapper {
+  flex-grow: 1;
+  padding: 0 16px;
+
+  @media (min-width: 640px) {
+    padding: 0 32px;
+  }
+}

@@ -1,0 +1,27 @@
+@import '../../../styles/variables';
+
+.image_upload {
+  display: flex;
+}
+
+.file_input_label {
+  width: 100%;
+
+  padding: $size-xs;
+
+  text-align: center;
+
+  border: 1px solid $color-gray-light;
+  background-color: $color-gray-light;
+
+  transition: border-color 0.2s linear;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $color-gray-dark;
+  } 
+}
+
+.file_input {
+  display: none;
+}

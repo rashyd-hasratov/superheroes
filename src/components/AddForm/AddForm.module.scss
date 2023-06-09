@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $size-s;
+}
+
+.submit_button {
+  padding: 12px;
+
+  font-family: inherit;
+  font-weight: 700;
+  font-size: $size-s;
+  color: $color-white;
+
+  border-radius: 8px;
+  background-color: $color-green-light;
+
+  transition: background-color 0.2s linear;
+
+  &:hover {
+    background-color: $color-green-dark;
+  }
+}

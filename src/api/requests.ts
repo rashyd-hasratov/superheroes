@@ -1,6 +1,25 @@
 import { Superhero } from "../types/Superhero";
 import { API_BASE_URL } from '../constants';
-import { get, post, remove } from './fetchers';
+import { get, post, patch, remove } from './fetchers';
+
+type SuperheroPostData = {
+  nickname: string;
+  real_name: string;
+  origin_description: string;
+  superpowers: string;
+  catch_phrase: string;
+  images: File[];
+};
+
+type SuperheroPatchData = {
+  nickname: string;
+  dataToUpdate: Partial<Superhero>;
+};
+
+type PhotoPostData = {
+  nickname: string;
+  image: File;
+};
 
 export const getSuperheroes = (
   page?: number,
@@ -24,14 +43,16 @@ export const getSuperheroesCount = () => {
   return get<{ count: number }>(`${API_BASE_URL}/count`);
 };
 
-export const postSuperhero = (
-  nickname: string,
-  real_name: string,
-  origin_description: string,
-  superpowers: string,
-  catch_phrase: string,
-  images: File[],
-) => {
+export const postSuperhero = (postData: SuperheroPostData) => {
+  const {
+    nickname,
+    real_name,
+    origin_description,
+    superpowers,
+    catch_phrase,
+    images,
+  } = postData;
+
   const formData = new FormData();
 
   formData.append('nickname', nickname);
@@ -46,6 +67,20 @@ export const postSuperhero = (
 
   return post<Superhero>(`${API_BASE_URL}/add`, formData);
 };
+
+export const postPhoto = (photoPostData: PhotoPostData) => {
+  const formData = new FormData();
+
+  formData.append('image', photoPostData.image);
+
+  return post<Superhero>(`${API_BASE_URL}/${photoPostData.nickname}/new-photo`, formData);
+}
+
+export const patchSuperhero = (patchData: SuperheroPatchData) => {
+  console.log(patchData);
+
+  return patch<Superhero>(`${API_BASE_URL}/${patchData.nickname}`, patchData.dataToUpdate);
+}
 
 export const removeSuperhero = (nickname: string) => {
   return remove<Superhero>(`${API_BASE_URL}/${nickname}`);

@@ -1,18 +1,19 @@
-.pagination_nav_button {
-  width: 32px;
-  height: 32px;
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
 
-  border: 1px solid #e7e6e6;
-  border-radius: 50%;
-  background-color: #e7e6e6;
+.pagination_nav_button {
+  @include circle($size-l);
+
+  border: 1px solid $color-gray-light;
+  background-color: $color-gray-light;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 8px;
+  background-size: $size-xs;
 
   transition: background-color 0.2s linear;
 
   &:hover {
-    background-color: #ffffff;
+    background-color: $color-white;
   }
 }
 

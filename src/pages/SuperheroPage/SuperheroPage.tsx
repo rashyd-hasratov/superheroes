@@ -1,135 +1,166 @@
-import { Link, useLocation } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import classNames from 'classnames';
+import { useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
 
-import { getSuperhero, removeSuperhero } from '../../api/requests';
+import {
+  getSuperhero,
+  patchSuperhero,
+  postPhoto,
+  removeSuperhero,
+} from '../../api/requests';
+import { NotificationType } from '../../types/NotificationType';
+import { NotificationContext } from '../../contexts/NotificationContext';
+import { ImageSlider } from '../../components/ImageSlider';
+import { SuperheroInfoItem } from '../../components/SuperheroInfoItem';
+import { SuperheroInfoHeader } from '../../components/SuperheroInfoHeader';
+import { SuperheroImagesSettings } from '../../components/SuperheroImagesSettings';
 
 import styles from './SuperheroPage.module.scss';
-import generalStyles from '../../styles/General.module.scss';
-import { ImageSlider } from '../../components/ImageSlider';
 
 export const SuperheroPage = () => {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const nicknameFormatted = pathname.slice(1);
+
+  const { showNotification } = useContext(NotificationContext);
+
+  const queryClient = useQueryClient();
 
   const superheroQuery = useQuery({
     queryKey: ['superhero', nicknameFormatted],
     queryFn: () => getSuperhero(nicknameFormatted),
+    retry: false,
+    onError: () => showNotification(
+      'Unable to load data',
+      NotificationType.DANGER,
+    ),
+  });
+
+  const createSuperheroDeleteMutation = useMutation({
+    mutationFn: removeSuperhero,
+    onSuccess: () => {
+      showNotification('Deleted!', NotificationType.SUCCESS);
+      navigate('/');
+    },
+    onError: () => {
+      showNotification('Unable to delete', NotificationType.DANGER);
+    },
+  });
+
+  const createSuperheroUpdateMutation = useMutation({
+    mutationFn: patchSuperhero,
+    onSuccess: (data) => {
+      showNotification('Saved!', NotificationType.SUCCESS);
+      queryClient.setQueryData(['superhero', nicknameFormatted], data);
+    },
+    onError: (err) => {
+      console.log(err);
+      showNotification('Unable to update', NotificationType.DANGER);
+    },
+  });
+
+  const createPhotoUploadMutation = useMutation({
+    mutationFn: postPhoto,
+    onSuccess: (data) => {
+      queryClient.setQueryData(['superhero', nicknameFormatted], data);
+    },
+    onError: () => {
+      showNotification('Unable to upload photo', NotificationType.DANGER);
+    },
   });
 
   const superhero = superheroQuery.data;
 
   const handleDelete = () => {
-    removeSuperhero(nicknameFormatted)
-      .then(({ nickname }) => console.log(`${nickname} was deleted from the DB!`))
-      .catch(err => console.log(err));
+    createSuperheroDeleteMutation.mutate(nicknameFormatted);
   };
 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = event.target;
+
+    if (files) {
+      createPhotoUploadMutation.mutate({
+        nickname: nicknameFormatted,
+        image: files[0],
+      });
+    }
+  }
+
+  const updateByKey = (key: string, value: string | string[]) => {
+    const dataToUpdate = {
+      [key]: value,
+    };
+
+    createSuperheroUpdateMutation.mutate({
+      nickname: nicknameFormatted,
+      dataToUpdate,
+    });
+  };
+
+  if (superheroQuery.isLoading) {
+    return <p className={styles.loading_text}>Loading...</p>
+  }
+
+  if (superheroQuery.isError) {
+    return (
+      <button
+        className={styles.reload_button}
+        onClick={() => superheroQuery.refetch()}
+      >
+        Reload
+      </button>
+    );
+  }
+
   return (
-    <div className={styles.page}>
-      <div className={styles.header_wrapper}>
-        <div className={generalStyles.content}>
-          <header className={styles.header}>
-            <Link to={'/'} className={styles.logo}>
-              Superheroes DB
-            </Link>
+    <>
+      <div className={styles.superhero}>
+        <ImageSlider productImages={superhero?.images || []}/>
 
-            <Link
-              to={'/add'}
-              className={styles.add_button}
-            >
-              Add New
-            </Link>
-          </header>
+        <div className={styles.info}>
+          <SuperheroInfoHeader
+            title={superhero?.nickname as string}
+            onSuperheroDelete={handleDelete}
+          />
+
+          <SuperheroInfoItem
+            property='real_name'
+            value={superhero?.real_name as string}
+            onUpdate={updateByKey} 
+          />
+
+          <SuperheroInfoItem
+            property='origin_description'
+            value={superhero?.origin_description as string}
+            onUpdate={updateByKey} 
+          />
+
+          <SuperheroInfoItem
+            property='superpowers'
+            value={superhero?.superpowers as string}
+            onUpdate={updateByKey} 
+          />
+
+          <SuperheroInfoItem
+            property='catch_phrase'
+            value={superhero?.catch_phrase as string}
+            onUpdate={updateByKey} 
+          />
+
+          <SuperheroImagesSettings
+            images={superhero?.images as string[]}
+            onImageUpload={handleImageUpload}
+            onUpdate={updateByKey}
+          />
         </div>
       </div>
 
-      <div className={styles.main_wrapper}>
-        <div className={generalStyles.content}>
-          <div className={styles.superhero_info}>
-            <ImageSlider productImages={superhero?.images || []}/>
-            <div className={styles.description}>
-              <h1 className={styles.title}>
-                {superhero?.nickname}
-              </h1>
-
-              <div className={styles.description_item}>
-                <h2 className={styles.description_item_title}>
-                  Real Name
-                </h2>
-
-                <p className={styles.description_item_value}>
-                  {superhero?.real_name}
-                </p>
-              </div>
-
-              <div className={styles.description_item}>
-                <h2 className={styles.description_item_title}>
-                  Origin Description
-                </h2>
-
-                <p className={styles.description_item_value}>
-                  {superhero?.origin_description}
-                </p>
-              </div>
-
-              <div className={styles.description_item}>
-                <h2 className={styles.description_item_title}>
-                  Superpowers
-                </h2>
-
-                <p className={styles.description_item_value}>
-                  {superhero?.superpowers}
-                </p>
-              </div>
-
-              <div className={styles.description_item}>
-                <h2 className={styles.description_item_title}>
-                  Catch Phrase
-                </h2>
-
-                <p className={styles.description_item_value}>
-                  {superhero?.catch_phrase}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <ul className={styles.actions}>
-            <li>
-              <Link
-                to={`/${nicknameFormatted}/edit`}
-                className={classNames(
-                  styles.actions_button,
-                  styles.actions_button_edit,
-                )}
-              >
-                Edit
-              </Link>
-            </li>
-
-            <li>
-              <button
-                className={classNames(
-                  styles.actions_button,
-                  styles.actions_button_delete,
-                )}
-                onClick={handleDelete}
-              >
-                Delete
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div className={styles.footer_wrapper}>
-        <div className={generalStyles.content}>
-          <footer className={styles.footer}>
-            Developed with love
-          </footer>
-        </div>
-      </div>
-    </div>
+      <button
+        className={styles.delete_button}
+        onClick={handleDelete}
+      >
+        Delete
+      </button>
+    </>
   );
 };

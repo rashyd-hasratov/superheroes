@@ -1,3 +1,6 @@
+@import '../../../styles/variables';
+@import '../../../styles/extends';
+
 .pagination_bullet {
   position: relative;
 
@@ -9,25 +12,22 @@
     padding-bottom: 100%;
   }
 
-  border: 2px solid #e7e6e6;
+  border: 2px solid $color-gray-light;
   background-color: transparent;
 
   transition: border-color 0.2s linear;
 
   &:hover {
-    border-color: #000000;
+    border-color: $color-black;
   }
 }
 
 .pagination_bullet_active {
-  border-color: #000000;
+  border-color: $color-black;
 }
 
 .pagination_bullet_image_container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
+  @extend %absoluteCenterAlignment;
   width: 80%;
 
   &::after {
@@ -36,9 +36,5 @@
     padding-bottom: 100%;
   }
 
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-
-  transform: translate(-50%, -50%);
+  @extend %backgroundCenterCoverAlignment;
 }

@@ -18,7 +18,6 @@ export const SuperheroesList = () => {
   const superheroesQuery = useQuery({
     queryKey: ['superheroes', page],
     queryFn: () => getSuperheroes(page),
-    keepPreviousData: true,
   });
 
   const superheroesCountQuery = useQuery({
@@ -29,6 +28,10 @@ export const SuperheroesList = () => {
   const superheroes = superheroesQuery.data || [];
   const superheroesCount = Number(superheroesCountQuery.data?.count);
   const pagesCount = Math.ceil(superheroesCount / 5);
+
+  if (superheroesQuery.isLoading) {
+    return <p className={styles.loading_text}>Loading...</p>
+  }
 
   return (
     <div className={generalStyles.content}>
@@ -43,7 +46,7 @@ export const SuperheroesList = () => {
         })}
       </div>
       
-      {superheroes.length > 0 && <Pagination quantity={pagesCount} />}
+      {pagesCount > 1 && <Pagination quantity={pagesCount} />}
     </div>
   );
 };

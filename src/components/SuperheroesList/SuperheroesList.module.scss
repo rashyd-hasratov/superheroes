@@ -1,7 +1,14 @@
+@import '../../styles/variables';
+
+.loading_text {
+  font-weight: 700;
+  font-size: $size-m;
+}
+
 .list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: $size-s;
 
   margin-bottom: 36px;
 }

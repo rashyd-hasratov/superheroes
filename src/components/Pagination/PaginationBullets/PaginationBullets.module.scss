@@ -1,6 +1,8 @@
+@import '../../../styles/variables';
+
 .pagination_bullets {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: $size-xs;
 }

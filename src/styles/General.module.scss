@@ -1,4 +1,42 @@
-.content {
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  min-height: 100vh;
+
+  @media (min-width: 640px) {
+    gap: 24px;
+  }
+
+  @media (min-width: 1024px) {
+    gap: 32px;
+  }
+
+  &_title {
+    font-weight: 700;
+    margin-bottom: 16px;
+  
+    @media (min-width: 640px) {
+      font-size: 24px;
+    }
+  
+    @media (min-width: 1024px) {
+      font-size: 32px;
+    }
+  }
+}
+
+.container {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.main_wrapper {
+  flex-grow: 1;
+  padding: 0 16px;
+
+  @media (min-width: 640px) {
+    padding: 0 32px;
+  }
 }

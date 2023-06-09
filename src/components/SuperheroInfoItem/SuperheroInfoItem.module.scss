@@ -1,0 +1,49 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+@import '../../styles/extends';
+
+.description_item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $size-xs;
+
+  @media (min-width: 468px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.description_item_header {
+  display: flex;
+  align-items: flex-start;
+  gap: $size-xs;
+}
+
+.description_item_title {
+  font-weight: 700;
+}
+
+.edit_button {
+  position: relative;
+  @include circle($size-m);
+
+  transition: background-color 0.2s linear;
+
+  &::before {
+    content: '';
+    @extend %absoluteCenterAlignment;
+
+    width: 60%;
+    padding-bottom: 60%;
+
+    background-image: url('../../assets/icons/icon-edit.svg');
+    @extend %backgroundCenterCoverAlignment;
+  }
+}

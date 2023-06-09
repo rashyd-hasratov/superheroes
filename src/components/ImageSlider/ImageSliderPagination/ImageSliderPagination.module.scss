@@ -1,6 +1,8 @@
+@import '../../../styles/variables';
+
 .pagination {
   display: grid;
-  gap: 8px;
+  gap: $size-xs;
   grid-template-columns: repeat(4, 1fr);
 
   @media (min-width: 939px) {
@@ -12,6 +14,6 @@
   }
 
   @media (min-width: 1024px) {
-    gap: 16px;
+    gap: $size-s;
   }
 }
